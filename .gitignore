@@ -1,0 +1,12 @@
+.DS_Store
+proxmox.pkrvars.hcl
+.tmp
+.env
+.vagrant
+.vscode
+.idea
+.pytest_cache
+.pytest_cache/*
+.pytest_cache/
+.pytest_cache/
+.packer_cache
