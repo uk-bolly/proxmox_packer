@@ -1,0 +1,259 @@
+#cloud-config
+autoinstall:
+  version: 1
+  source:
+    id: ubuntu-server-minimal
+  timezone: Europe/London
+  locale: en_US.UTF-8
+  keyboard:
+    layout: us
+  updates: all
+  shutdown: reboot
+  identity:
+    realname: vagrant
+    username: vagrant
+    hostname: ub24
+    password: '$y$j9T$nmejSZ72lmXeXyR3E/0YC.$9m70fiH4GPgNY.4J25jLnxMc7snkV/AnGyddELBTocC'
+  network:
+    version: 2
+    ethernets:
+      ens18:
+        dhcp4: true
+  ssh:
+    install-server: true
+    allow-pw: true
+  ca-certs:
+    remove-defaults: false
+  packages:
+    - vim
+    - qemu-guest-agent
+    - htop
+  late-commands:
+    - echo 'vagrant ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/90-vagrant
+  storage:
+    grub:
+      reorder_uefi: false
+    config:
+    # Partition table
+    - type: disk
+      id: disk-sda
+      ptable: gpt
+      path: /dev/sda  #Change to dev name
+      wipe: superblock-recursive
+      preserve: false
+
+    # EFI Partition
+    - type: partition
+      id: efi
+      device: disk-sda
+      offset: 1048576
+      size: 1G
+      flag: boot
+      partition_type: EF00
+      wipe: superblock
+      preserve: false
+      grub_device: true
+
+    - type: format
+      id: efipart_fs
+      fstype: fat32
+      volume: efi
+      preserve: false
+
+    - type: partition
+      id: bootpart
+      device: disk-sda
+      size: 1G
+
+    - type: format
+      id: bootpart_fs
+      volume: bootpart
+      fstype: ext4
+
+    # Create LV config
+    - type: partition
+      id: lvm-pv-partition
+      device: disk-sda
+      size: -1   # -1 to use the rest of the disk as a pv for lvm
+      wipe: superblock
+      number: 3
+      preserve: false
+
+    - type: lvm_volgroup
+      id: vg00
+      name: vg00
+      devices:
+        - lvm-pv-partition
+      preserve: false
+
+    # Create and format root partition
+    - type: lvm_partition
+      id: lv-root
+      name: lv_root
+      volgroup: vg00
+      size: 5G
+      wipe: superblock
+      preserve: false
+
+    - type: format
+      id: root-format
+      fstype: xfs
+      volume: lv-root
+      preserve: false
+
+    # Create and format home partition
+    - type: lvm_partition
+      id: lv-home
+      name: home.vol
+      volgroup: vg00
+      size: 2G
+      wipe: superblock
+      preserve: false
+
+    - type: format
+      id: home-format
+      fstype: xfs
+      volume: lv-home
+      preserve: false
+
+    # Create and format tmp partition
+    - type: lvm_partition
+      id: lv-tmp
+      name: tmp.vol
+      volgroup: vg00
+      size: 1G
+      wipe: superblock
+      preserve: false
+
+    - type: format
+      id: tmp-format
+      fstype: xfs
+      volume: lv-tmp
+      preserve: false
+
+    # Create and format var partition
+    - type: lvm_partition
+      id: lv-var
+      name: var.vol
+      volgroup: vg00
+      size: 2G
+      wipe: superblock
+      preserve: false
+
+    - type: format
+      id: var-format
+      fstype: xfs
+      volume: lv-var
+      preserve: false
+
+    # Create and format var/log partition
+    - type: lvm_partition
+      id: lv-varlog
+      name: var_log.vol
+      volgroup: vg00
+      size: 1G
+      wipe: superblock
+      preserve: false
+
+    - type: format
+      id: varlog-format
+      fstype: xfs
+      volume: lv-varlog
+      preserve: false
+
+    # Create and format var/log/audit partition
+    - type: lvm_partition
+      id: lv-varlogaudit
+      name: audit.vol
+      volgroup: vg00
+      size: 2G
+      wipe: superblock
+      preserve: false
+
+    - type: format
+      id: varlogaudit-format
+      fstype: xfs
+      volume: lv-varlogaudit
+      preserve: false
+
+    # Create and format var/tmp partition
+    - type: lvm_partition
+      id: lv-vartmp
+      name: vartmp.vol
+      volgroup: vg00
+      size: 1G
+      wipe: superblock
+      preserve: false
+
+    - type: format
+      id: vartmp-format
+      fstype: xfs
+      volume: lv-vartmp
+      preserve: false
+
+    # Create and format swap
+    - type: lvm_partition
+      id: lv-swap
+      name: swap.vol
+      volgroup: vg00
+      size: 1G
+      wipe: superblock
+      preserve: false
+
+    - type: format
+      id: swap-format
+      fstype: swap
+      volume: lv-swap
+      preserve: false
+
+## Mount filesystem
+
+    - id: efipart-mount
+      type: mount
+      device: efipart_fs
+      path: /boot/efi
+
+    - id: bootpart-mount
+      type: mount
+      device: bootpart_fs
+      path: /boot
+
+    - type: mount
+      id: root-mount
+      path: /
+      device: root-format
+
+    - type: mount
+      id: home-mount
+      path: /home
+      device: home-format
+
+    - type: mount
+      id: tmp-mount
+      path: /tmp
+      device: tmp-format
+
+    - type: mount
+      id: var-mount
+      path: /var
+      device: var-format
+
+    - type: mount
+      id: varlog-mount
+      path: /var/log
+      device: varlog-format
+
+    - type: mount
+      id: varlogaudit-mount
+      path: /var/log/audit
+      device: varlogaudit-format
+
+    - type: mount
+      id: vartmp-mount
+      path: /var/tmp
+      device: vartmp-format
+
+    - type: mount
+      id: swap-mount
+      path: none
+      device: swap-format

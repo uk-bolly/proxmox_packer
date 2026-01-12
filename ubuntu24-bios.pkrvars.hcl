@@ -1,0 +1,18 @@
+# RHEL10 family bios vars
+iso_name                = "Ubuntu-24.04.3-live-server-amd64.iso"
+iso_checksum            = "none"
+boot_cmd                = "e<wait><down><down><down><end><bs><bs><bs><bs><wait>autoinstall cloud-config-url=/dev/null ds=nocloud-net\\;seedfrom=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ubuntu_bios/ ---<wait><f10><wait>"
+boot_type               = "seabios"
+cpu_sockets             = "1"
+cpu_core2               = "2"
+cpu_type                = "host"
+memory                  = "2048"
+os_arch                 = "amd64"
+os_flavour              = "Ubuntu"
+os_major                = "24"
+os_minor                = "4"
+use_cloud_init          = true
+cloud_init_storage_pool = "proxmox_nfs"
+vm_id                   = "9823"
+vm_pool                 = "ubuntu_pool"
+tags                    = "ubuntu;ubuntu24"

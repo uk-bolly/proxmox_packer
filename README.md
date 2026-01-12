@@ -41,7 +41,7 @@ Create a `proxmox.pkrvars.hcl` file (or copy from the example) with your Proxmox
 ```hcl
 proxmox_api_url = "your-proxmox-host:8006"
 proxmox_api_token_id = "user@pam!token_name"
-proxmox_api_token_secret = "your-token-secret"
+proxmox_api_token_secret = "your-token-secret" # pragma: allowlist secret
 proxmox_node = "proxmox01"
 storage_pool = "your-storage-pool"
 ```
@@ -242,6 +242,10 @@ Modify the files in the `http/` directory to customize the automated installatio
 - **VM ID conflicts**: Ensure `vm_id` is unique for each template
 - **Storage pool errors**: Verify the storage pool name and available space
 - **Network issues**: Ensure the Proxmox node can reach the HTTP server during build
+
+## To DO
+Tidy up pkrvars work logic into bios vs efi
+Add Ubuntu cloudinit config (ub22)
 
 ## Security Notes
 
