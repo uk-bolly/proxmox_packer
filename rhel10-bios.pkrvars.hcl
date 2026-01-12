@@ -11,5 +11,6 @@ memory       = "4096"
 os_flavour   = "rhel"
 os_major     = "10"
 os_minor     = "1"
+vm_id        = "7101" # 7 RHEL - 10 OS version - 1 Bios
 vm_pool      = "el10_pool"
 tags         = "redhat;rhel10"

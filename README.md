@@ -137,7 +137,6 @@ proxmox_packer/
     ├── alma10-bios-ks.cfg       # AlmaLinux 10 BIOS kickstart
     ├── alma10-efi-ks.cfg        # AlmaLinux 10 EFI kickstart
     ├── debian-preseed.cfg       # Debian preseed configuration
-    ├── debian13-preseed.cfg     # Debian 13 preseed configuration
     ├── ubuntu24-preseed.cfg     # Ubuntu 24.04 preseed configuration
     ├── ubuntu_bios/             # Ubuntu BIOS cloud-init files
     │   ├── meta-data
@@ -155,7 +154,18 @@ proxmox_packer/
 - `proxmox_api_token_id`: API token ID
 - `proxmox_api_token_secret`: API token secret
 - `vm_id`: Unique VM ID for the template
-
+  - Format OS - Release Boot type
+    - e.g. OS NUMBER
+      - ALMA = 1
+      - DEBIAN = 3
+      - RHEL = 7
+      - Rocky=8
+      - Ubuntu=9
+    - OS Release Major
+    - Bootype
+      - 1 Bios
+      - 2 EFI
+  - e.g. 7101 - RHEL = 7 OSMAJ = 10 BOOT = BIOS (1)
 ### Common Variables
 - `os_flavour`: Operating system name (e.g., "AlmaLinux", "Ubuntu")
 - `os_major`: Major version number
@@ -182,7 +192,6 @@ The `http/` directory contains automated installation configuration files:
   - Distribution-specific kickstart files are also available
 - **Preseed files** (`.cfg`): For Debian-based distributions (Debian, Ubuntu)
   - `debian-preseed.cfg`: General Debian preseed configuration
-  - `debian13-preseed.cfg`: Debian 13 specific preseed
   - `ubuntu24-preseed.cfg`: Ubuntu 24.04 preseed configuration
 - **Cloud-init files**: For Ubuntu automated installation
   - `ubuntu_bios/` and `ubuntu_efi/` directories contain `meta-data` and `user-data` files

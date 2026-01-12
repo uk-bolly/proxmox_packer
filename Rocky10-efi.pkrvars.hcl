@@ -11,6 +11,6 @@ memory          = "4096"
 os_flavour      = "Rocky"
 os_major        = "10"
 os_minor        = "1"
-vm_id           = "1102" # 9 Alma - 10 OS version - 1 EFI
+vm_id           = "8102" # 8 Rocky - 10 OS version - 2 EFI
 vm_pool         = "el10_pool"
 tags            = "redhat;rocky10"

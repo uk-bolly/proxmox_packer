@@ -11,6 +11,6 @@ os_arch      = "amd64"
 os_flavour   = "Debian"
 os_major     = "12"
 os_minor     = "12"
-vm_id        = "9112"
+vm_id        = "2121" # Debian 3 - 12 OS version - 1 Bios
 vm_pool      = "debian_pool"
 tags         = "debian;debian12"

@@ -11,5 +11,6 @@ memory       = "2048"
 os_flavour   = "AlmaLinux"
 os_major     = "9"
 os_minor     = "6"
+vm_id        = "1091" # 9 Alma - 09 OS version - 1 Bios
 vm_pool      = "el9_pool"
 tags         = "redhat;alma9"

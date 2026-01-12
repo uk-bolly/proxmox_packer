@@ -12,5 +12,6 @@ memory          = "2048"
 os_flavour      = "Rocky"
 os_major        = "9"
 os_minor        = "7"
+vm_id           = "8092" # 8 Rocky - 09 OS version - 2 EFI
 vm_pool         = "el9_pool"
 tags            = "redhat;rocky9"
