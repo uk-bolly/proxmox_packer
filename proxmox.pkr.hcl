@@ -210,11 +210,14 @@ source "proxmox-iso" "proxmox_tmpl" {
     type         = var.disk_type
     format       = "qcow2"
   }
-  efi_config {
-    efi_storage_pool  = var.storage_pool
-    pre_enrolled_keys = true
-    efi_format        = "raw"
-    efi_type          = "4m"
+  dynamic "efi_config" {
+    for_each = var.boot_type == "ovmf" ? [1] : []
+    content {
+      efi_storage_pool  = var.storage_pool
+      pre_enrolled_keys = true
+      efi_format        = "raw"
+      efi_type          = "4m"
+    }
   }
   cpu_type   = var.cpu_type
   cores      = var.cpu_cores
