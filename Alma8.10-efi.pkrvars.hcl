@@ -2,7 +2,7 @@
 
 iso_type        = "minimal.iso"
 iso_checksum    = "none"
-boot_cmd        = "e<down><down><end><bs><bs><bs><bs><bs>inst.text inst.nompath inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/8-efi-ks.cfg<leftCtrlOn>x<leftCtrlOff>"
+boot_cmd        = "e<down><down><end><bs><bs><bs><bs><bs>inst.text inst.nompath inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/EL8-ks.cfg<leftCtrlOn>x<leftCtrlOff>"
 boot_type       = "ovmf"
 bootloader_type = "EFI"
 cpu_sockets     = "1"

@@ -2,7 +2,7 @@
 
 iso_type     = "minimal.iso"
 iso_checksum = "none"
-boot_cmd     = "<up>e<down><down><end><bs><bs><bs><bs><bs>inst.text inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/EL10-ks.cfg<leftCtrlOn>x<leftCtrlOff>"
+boot_cmd     = "<down>e<down><down><end> inst.text inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/EL10-ks.cfg<leftCtrlOn>x<leftCtrlOff>"
 boot_type    = "seabios"
 cpu_sockets  = "1"
 cpu_cores    = "2"

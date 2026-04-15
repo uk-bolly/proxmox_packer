@@ -2,7 +2,7 @@
 
 iso_type     = "minimal.iso"
 iso_checksum = "none"
-boot_cmd     = "<tab><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>inst.text inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/8-bios-ks.cfg<enter><wait>"
+boot_cmd     = "<tab><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>inst.text inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/EL8-ks.cfg<enter><wait>"
 boot_type    = "seabios"
 cpu_sockets  = "1"
 cpu_core     = "2"
